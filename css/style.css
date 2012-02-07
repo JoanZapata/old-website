@@ -1,4 +1,5 @@
 html {
+	overflow: hidden;
 	font: 13px/18px Georgia,Times New Roman,serif;
 	padding: 0px;
 	margin: 0px;
@@ -25,6 +26,10 @@ a:hover {
 }
 
 #title {
+	position: relative;
+}
+
+.title {
 	font-family: Arial,'Helvetica Neue',Helvetica,sans-serif;
 	color: white;
 	font-size: 30px;
@@ -34,7 +39,16 @@ a:hover {
 	margin: 0;
 }
 
+.lastActivity {
+	font-size: 25px;
+	font-style: italic;
+	display: inline;
+	margin-bottom: 10px;
+	position: relative;
+}
+
 #description {
+	position: relative;
 	margin-top: 10px;
 	color: #243748;
 	font-size: 18px;
@@ -59,12 +73,13 @@ a:hover {
 }
 
 .avatar {
-	border: 6px solid #EEE;
+	border: 5px solid #EEE;
 	-moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.68);
 	-webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.68);
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.68);
-	margin-bottom: 10px;
 	margin-left: 4px;
+	display: inline;
+	position: relative;
 }
 
 .timeago {
@@ -72,13 +87,23 @@ a:hover {
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33); 
 }
 
-.lifestream {
+#lifestream {
 	color: #FFF;
+	margin-top: 10px;
+}
+
+.lifestream {
 	list-style: none;
 	margin: 0px;
 	padding: 0px;
 	line-height: 25px;
 	vertical-align: middle;
+}
+
+.lifestream li {
+	position: relative;
+	visibility: hidden;
+	overflow: hidden;
 }
 
 .lifestream img {

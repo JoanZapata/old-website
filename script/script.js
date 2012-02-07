@@ -1,6 +1,4 @@
 $(function() {
-	
-
     var count = 0;
     var list = [
         {
@@ -14,9 +12,14 @@ $(function() {
 			service : "github",
 			user : "shuya-inc",
 			template : {
-				commented : '<img src="images/github_act.png" /> commented on <a href="${status.url}">${what}</a> on <a href="http://github.com/${repo}">${repo}</a>'
+				pushed : '<img src="images/github_act.png" /> <a href="${status.url}" title="{{if title}}${title} by ${author} {{/if}}">pushed</a> to <a href="http://github.com/${repo}/tree/${branchname}">${branchname}</a> at <a href="http://github.com/${repo}">${repo}</a>',
+				gist : '<img src="images/github_act.png" /> <a href="${status.payload.url}" title="${status.payload.desc || ""}">${status.payload.name}</a>',
+				commented : '<img src="images/github_act.png" /> commented on <a href="${status.url}">${what}</a> on <a href="http://github.com/${repo}">${repo}</a>',
+				pullrequest : '<img src="images/github_act.png" /> ${status.payload.action} <a href="${status.url}">pull request #${status.payload.number}</a> on <a href="http://github.com/${repo}">${repo}</a>',
+				created : '<img src="images/github_act.png" /> created ${status.payload.ref_type || status.payload.object} <a href="${status.url}">${status.payload.ref || status.payload.object_name}</a> for <a href="http://github.com/${repo}">${repo}</a>',
+				createdglobal : '<img src="images/github_act.png" /> created ${status.payload.object} <a href="${status.url}">${title}</a>',
+				deleted : '<img src="images/github_act.png" /> deleted ${status.payload.ref_type} ${status.payload.ref} at <a href="http://github.com/${status.repository.owner}/${status.repository.name}">${status.repository.owner}/${status.repository.name}</a>'
 			}
-			
 		}];
 	
 	Date.prototype.toISO8601 = function(date) {
@@ -38,27 +41,53 @@ $(function() {
             + pad(Math.floor(Math.abs(offset) / 60), 2)
             + ":" + pad(Math.abs(offset) % 60, 2);
     };
-	
+    
+    var lifestreamDisplayed = false;
+    
+    window.setInterval(function(){
+    	if (lifestreamDisplayed) return;
+    	 $("#lifestream").append('.');
+    }, 400);
+    
+    $("#title").css('opacity', '0').css('bottom', '15px').animate({bottom: '0px', opacity: '1'}, 'slow', 'easeOutQuad');
+    $("#description").css('opacity', '0').css('right', '15px').delay(200).animate({right: '0px', opacity: '1'}, 'slow', 'easeOutQuad');
+    $(".avatar").css('opacity', '0').css('left', '15px').delay(400).animate({left: '0px', opacity: '1'}, 'slow', 'easeOutQuad');
+    $(".lastActivity").css('opacity', '0').css('left', '15px');
+    $("#lifestream").css('opacity', '0').css('left', '15px').delay(500).animate({left: '0px', opacity: '1'}, 'slow', 'easeOutQuad');
+    
 	$("#lifestream").lifestream({
 		feedloaded: function(){
 			count++;
-	          // Check if all the feeds have been loaded
-	          if( count === list.length ){
-	            $("#lifestream li").each(function(){
-	              var element = $(this),
-	                  date = new Date(element.data("time"));
-	              element.append(' <abbr class="timeago" title="' + date.toISO8601(date) + '">' + date + "</abbr>");
-	            });
-	            $("#lifestream .timeago").timeago();
-	          }
+			if( count === list.length ){
+				$(".lastActivity").animate({left: '0px', opacity: '1'}, 'slow', 'easeOutQuad');
+			    
+				lifestreamDisplayed = true;
+				$("#lifestream li").each(function(index){
+					var element = $(this),
+					date = new Date(element.data("time"));
+					element.append(' <abbr class="timeago" title="' + date.toISO8601(date) + '">' + date + "</abbr>");
+					$(this).css('left', '40px').css('opacity', '0').height('0px').css('visibility', 'visible')
+							.delay(index*200)
+							.animate({height: '25px', left: '0px', opacity: '0.5'}, 'slow', 'easeOutQuad')
+							.animate({opacity: '1'});
+				});
+				$("#lifestream .timeago").timeago();
+			 }
 		},
-		limit : 6,
+		limit : 10,
 		list : list
+	});
+	
+	$(".link").each(function(index){
+		$(this).css('right', $(window).width()/2+'px').css('opacity', '0')
+				.delay(6*300-index*300)
+				.animate({right: '0px', opacity: '0.7'}, 'slow', 'easeOutQuad').animate({opacity: '1'});
 	});
 	
 	$(".link").hover(function(){
 		$(this).animate({bottom:'15px'}, "fast");
 	}, function(){
 		$(this).animate({bottom:'0px'}, "fast");
-	})
+	});
+	
 });

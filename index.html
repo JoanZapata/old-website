@@ -3,6 +3,7 @@
 	<head>
 		<link href="css/style.css" rel="stylesheet" type="text/css"></link>
 		<script src="lib/jquery-1.7.1.min.js"></script>
+		<script src="lib/jquery.easing.1.3.js"></script>
 		<script src="lib/jquery.timeago.js"></script>
 		<script src="lib/jquery.lifestream.min.js"></script>
 		<script src="script/script.js"></script>
@@ -15,7 +16,7 @@
 			<div id="avatar">
 			</div>
 			
-			<div id="title">
+			<div id="title" class="title">
 				Joan Zapata
 			</div>
 			
@@ -48,8 +49,14 @@
 		</div>
 		
 		<div id="right">
-			<img src="images/avatar.jpg" class="avatar"/>
-			<div id="lifestream"></div>
+			<div>
+				<img src="images/avatar.jpg" class="avatar"/>
+				<div class="title lastActivity">
+					.lastActivity();
+				</div>	
+			</div>
+			
+			<div id="lifestream">...</div>
 		</div>
 	
 	</body>
