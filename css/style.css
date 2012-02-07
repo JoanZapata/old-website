@@ -116,8 +116,18 @@ a:hover {
 }
 
 #links ul li {
+	height: 68px;
 	position: relative;
-	display: inline;
+	float: right;
 }
 
+#links img {
+	position: relative;
+}
+
+#links img.shadow {
+	bottom: 2px;
+	left: 0px;
+	position: absolute;
+}
 
