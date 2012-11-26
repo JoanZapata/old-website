@@ -3,14 +3,14 @@ $(function() {
     var list = [
         {
 			service : "twitter",
-			user : "ShuyaInc",
+			user : "JoanZap",
 			template : {
 				posted : '<img src="images/tweet.png" /> {{html tweet}}'
 			}
 		},
 		{
 			service : "github",
-			user : "shuya-inc",
+			user : "JoanZap",
 			template : {
 				pushed : '<img src="images/github_act.png" /> <a href="${status.url}" title="{{if title}}${title} by ${author} {{/if}}">pushed</a> to <a href="http://github.com/${repo}/tree/${branchname}">${branchname}</a> at <a href="http://github.com/${repo}">${repo}</a>',
 				gist : '<img src="images/github_act.png" /> <a href="${status.payload.url}" title="${status.payload.desc || ""}">${status.payload.name}</a>',
